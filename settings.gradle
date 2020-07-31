@@ -1,0 +1,6 @@
+rootProject.name = 'Store'
+
+include 'producer'
+include 'consumer'
+include 'dtos'
+

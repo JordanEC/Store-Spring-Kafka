@@ -1,0 +1,22 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+*.class
+.gradle
+.DS_Store
+
+
+consumer/.gradle
+consumer/build
+consumer/out
+
+dtos/.gradle
+dtos/build
+dtos/out
+
+producer/.gradle
+producer/build
+producer/out

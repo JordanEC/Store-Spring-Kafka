@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.6.RELEASE"
+    }
+}
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+bootJar {
+    enabled = false
+}
+group 'com.jordanec.store'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+allprojects {
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencies {
+        implementation('org.springframework.boot:spring-boot-starter')
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+        implementation 'org.springframework.kafka:spring-kafka'
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+        testImplementation 'org.springframework.kafka:spring-kafka-test'
+        compile group: 'mysql', name: 'mysql-connector-java'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testRuntime("com.h2database:h2")
+    }
+    sourceSets {
+        test.java.srcDirs += 'src/integration-test/java'
+        test.java.srcDirs += 'src/test/java'
+        test.resources.srcDirs += 'src/integration-test/resources'
+        test.resources.srcDirs += 'src/test/resources'
+    }
+}
+
+project(':dtos'){
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+}
+
+project(':producer'){
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    dependencies {
+        implementation project(':dtos')
+    }
+}
+
+project(':consumer'){
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    dependencies {
+        implementation project(':dtos')
+    }
+}
+
+sourceSets{
+    test {
+        java.srcDirs = ['src/test/java','src/integration-test/java']
+    }
+}
