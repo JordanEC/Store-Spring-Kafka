@@ -41,4 +41,31 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: order-events_shipment
+
 ---
+spring:
+  profiles: docker
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://mysql:3306/store_consumer
+    username: root
+    name: store_consumer
+    password: 54321
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      #      ddl-auto: create
+      #      ddl-auto: validate
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  kafka:
+    #    template:
+    #      default-topic: order-events
+    consumer:
+      #      bootstrap-servers: kafka:9092,kafka:9093,kafka:9094
+      bootstrap-servers: kafka:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: order-events_shipment

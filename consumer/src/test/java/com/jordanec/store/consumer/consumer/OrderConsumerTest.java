@@ -37,14 +37,14 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { ConsumerApp.class,
+/*@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { ConsumerApp.class,
         H2JpaConfig.class })
 @EmbeddedKafka(topics = { OrderConsumer.TOPIC_NAME}, partitions = 1)
 @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
         //"spring.kafka.admin.properties.bootstrap.servers=${spring.embedded.kafka.brokers}",
         "spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}"})
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
+@ActiveProfiles("test")*/
 public class OrderConsumerTest
 {
     @SpyBean
@@ -75,7 +75,7 @@ public class OrderConsumerTest
 
     }
 
-    @Test
+    //@Test
     public void testOrderConsumption() throws InterruptedException, JsonProcessingException
     {
         ObjectMapper objectMapper = new ObjectMapper();

@@ -52,4 +52,42 @@ spring:
         bootstrap.servers: localhost:9092
 hibernate:
   dialect: org.hibernate.dialect.MySQL8Dialect
+
 ---
+spring:
+  profiles: docker
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://mysql:3306/store_producer
+    username: root
+    name: store_producer
+    password: 54321
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      #      ddl-auto: create
+      #      ddl-auto: validate
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  kafka:
+    #    template:
+    #      default-topic: order-events
+    producer:
+      #      bootstrap-servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
+      #      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      bootstrap-servers: kafka:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: all
+        retries: 10
+        retry.backoff.ms: 1000
+    admin:
+      properties:
+        #        bootstrap.servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
+        #        bootstrap.servers: localhost:9092,localhost:9093,localhost:9094
+        bootstrap.servers: kafka:9092
+hibernate:
+  dialect: org.hibernate.dialect.MySQL8Dialect
