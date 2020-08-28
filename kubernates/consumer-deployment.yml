@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-deployment
+  labels:
+    app: store-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: consumer-pod
+      app: store-app
+  template:
+    metadata:
+      name: consumer-pod
+      labels:
+        name: consumer-pod
+        app: store-app
+    spec:
+      hostname: consumer
+      containers:
+        - name: store
+          image: jordanec/store-consumer:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker

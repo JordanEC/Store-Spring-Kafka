@@ -31,7 +31,7 @@ public class OrderConsumer
      * @param consumerRecord
      * @throws JsonProcessingException
      */
-    //@KafkaListener(topics = TOPIC_NAME)   //If there's a listener for each partition is not possible to have another one for all partitions
+    @KafkaListener(topics = TOPIC_NAME)   //If there's a listener for each partition is not possible to have another one for all partitions
     public void onMessageNoPartitionDefined(ConsumerRecord<String,String> consumerRecord)
             throws JsonProcessingException, InterruptedException
     {
@@ -47,7 +47,7 @@ public class OrderConsumer
      * @param consumerRecord
      * @throws JsonProcessingException
      */
-    @KafkaListener(topicPartitions = @TopicPartition(topic = TOPIC_NAME, partitions = {"0"}))
+    //@KafkaListener(topicPartitions = @TopicPartition(topic = TOPIC_NAME, partitions = {"0"}))
     public void onMessagePartition0(ConsumerRecord<String,String> consumerRecord) throws JsonProcessingException, InterruptedException
     {
         logRecordConsumption("onMessagePartition0", consumerRecord);
@@ -62,7 +62,7 @@ public class OrderConsumer
      * @param consumerRecord
      * @throws JsonProcessingException
      */
-    @KafkaListener(topicPartitions = {@TopicPartition(topic = TOPIC_NAME, partitions = {"1"})})
+    //@KafkaListener(topicPartitions = {@TopicPartition(topic = TOPIC_NAME, partitions = {"1"})})
     public void onMessagePartition1(ConsumerRecord<String,String> consumerRecord) throws JsonProcessingException, InterruptedException
     {
 
@@ -78,7 +78,7 @@ public class OrderConsumer
      * @param consumerRecord
      * @throws JsonProcessingException
      */
-    @KafkaListener(topicPartitions = {@TopicPartition(topic = TOPIC_NAME, partitions = {"2"})})
+    //@KafkaListener(topicPartitions = {@TopicPartition(topic = TOPIC_NAME, partitions = {"2"})})
     public void onMessagePartition2(ConsumerRecord<String,String> consumerRecord) throws JsonProcessingException, InterruptedException
     {
         logRecordConsumption("onMessagePartition2", consumerRecord);

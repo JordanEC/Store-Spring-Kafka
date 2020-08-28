@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  labels:
+    name: zookeeper-service
+    app: store-app
+spec:
+  type: NodePort
+  ports:
+    - port: 2181
+      targetPort: 2181
+      nodePort: 31181
+  selector:
+    name: zookeeper-pod
+    app: store-app

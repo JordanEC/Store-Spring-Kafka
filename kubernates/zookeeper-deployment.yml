@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-deployment
+  labels:
+    app: store-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zookeeper-pod
+      app: store-app
+  template:
+    metadata:
+      name: zookeeper-pod
+      labels:
+        name: zookeeper-pod
+        app: store-app
+    spec:
+      containers:
+        - name: zookeeper
+          image: wurstmeister/zookeeper
+#          imagePullPolicy: Never
+          ports:
+            - containerPort: 2181
+#          env:
+#            - name: SPRING_PROFILES_ACTIVE
+#              value: docker

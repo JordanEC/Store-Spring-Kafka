@@ -65,7 +65,7 @@ spring:
     #      default-topic: order-events
     consumer:
       #      bootstrap-servers: kafka:9092,kafka:9093,kafka:9094
-      bootstrap-servers: kafka:9092
+      bootstrap-servers: kafka-service:9092
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: order-events_shipment

@@ -77,7 +77,7 @@ spring:
     producer:
       #      bootstrap-servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
       #      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-      bootstrap-servers: kafka:9092
+      bootstrap-servers: kafka-service:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       properties:
@@ -88,6 +88,6 @@ spring:
       properties:
         #        bootstrap.servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
         #        bootstrap.servers: localhost:9092,localhost:9093,localhost:9094
-        bootstrap.servers: kafka:9092
+        bootstrap.servers: kafka-service:9092
 hibernate:
   dialect: org.hibernate.dialect.MySQL8Dialect

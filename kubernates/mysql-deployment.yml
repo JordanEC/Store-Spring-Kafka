@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: store-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-pod
+      app: store-app
+  template:
+    metadata:
+      name: mysql-pod
+      labels:
+        name: mysql-pod
+        app: store-app
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_USER
+              value: store
+            - name: MYSQL_PASSWORD
+              value: store
+            - name: MYSQL_ROOT_PASSWORD
+              value: "54321"
+          command: ["sh"]
+          args: ["-c","echo 'CREATE DATABASE IF NOT EXISTS store_producer; CREATE DATABASE IF NOT EXISTS store_consumer;' > /docker-entrypoint-initdb.d/init.sql;
+                  /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+                 "]

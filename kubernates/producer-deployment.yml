@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-deployment
+  labels:
+    app: store-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: producer-pod
+      app: store-app
+  template:
+    metadata:
+      name: producer-pod
+      labels:
+        name: producer-pod
+        app: store-app
+    spec:
+      hostname: producer
+      containers:
+        - name: store
+          image: jordanec/store-producer:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
