@@ -1,5 +1,6 @@
 package com.jordanec.store.producer.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,10 @@ import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "orderId",
+        scope = Order.class)
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode

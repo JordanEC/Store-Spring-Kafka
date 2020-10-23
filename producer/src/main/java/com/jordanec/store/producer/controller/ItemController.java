@@ -8,22 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "api")
+@CrossOrigin(origins={"*"},allowedHeaders = {"*"})
 @Slf4j
 public class ItemController
 {
     @Autowired
     ItemService itemService;
 
-    @RequestMapping(value = "/item/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/item", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Item> create(@RequestBody Item item) throws JsonProcessingException
     {
         try
@@ -38,7 +36,38 @@ public class ItemController
     }
 
 
-    @RequestMapping(value = "/item/bulkcreate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/item/{itemId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Item> update(@PathVariable("itemId") long itemId, @RequestBody Item item) throws JsonProcessingException
+    {
+        try
+        {
+            return new ResponseEntity<>(itemService.update(itemId, item), HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            log.error("update() -> item: {}", item, e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @RequestMapping(value = "/item/{itemId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("itemId") long itemId) throws JsonProcessingException
+    {
+        try
+        {
+            itemService.delete(itemId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            log.error("delete() -> item: {}", itemId, e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(value = "/item/bulkcreate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Item>> bulkCreate(@RequestBody List<Item> items) throws JsonProcessingException
     {
         try
@@ -52,9 +81,16 @@ public class ItemController
         }
     }
 
-    @RequestMapping(value = "/item", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/item", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Item>> findAll()
     {
         return new ResponseEntity<>(itemService.findAll(), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/item/{itemId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Item> get(@PathVariable("itemId") long itemId)
+    {
+        return new ResponseEntity<>(itemService.findByItemId(itemId), HttpStatus.OK);
     }
 }

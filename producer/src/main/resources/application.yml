@@ -9,6 +9,9 @@ spring:
     active: local
   jpa:
     show-sql: true
+#  jackson:
+#    serialization:
+#      fail-on-empty-beans: false
 #logging:
 #  level:
 #    org:

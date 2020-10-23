@@ -56,6 +56,11 @@ public class OrderService
         return order;
     }
 
+    public Order findByOrderNumber(String orderNumber)
+    {
+        return orderRepository.findByOrderNumber(orderNumber);
+    }
+
     private List<OrderLine> calculateOrder(Order order) throws Exception
     {
         double orderTotal = 0;

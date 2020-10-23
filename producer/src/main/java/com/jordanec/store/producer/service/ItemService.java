@@ -23,6 +23,18 @@ public class ItemService
     }
 
     @Transactional
+    public Item update(long itemId, Item item) {
+        item.setItemId(itemId);
+        return itemRepository.save(item);
+    }
+
+
+    @Transactional
+    public void delete(long itemId) {
+        itemRepository.deleteById(itemId);
+    }
+
+    @Transactional
     public List<Item> create(List<Item> items)
     {
         itemRepository.saveAll(items);

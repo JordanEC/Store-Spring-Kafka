@@ -1,17 +1,22 @@
 package com.jordanec.store.producer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.Table;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "orderLineId",
+        scope = OrderLine.class)
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -21,10 +26,10 @@ public class OrderLine
 {
     @EmbeddedId
     private OrderLineId orderLineId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("itemId")
     private Item item;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("orderId")
     private Order order;
     @Column
