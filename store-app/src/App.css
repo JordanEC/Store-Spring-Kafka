@@ -1,0 +1,82 @@
+.row-header{
+  margin:0px auto;
+  padding:0px auto;
+}
+.App{
+  width: 100%;
+}
+.logo {
+  background-color: whitesmoke;
+  color: whitesmoke;
+}
+.navbar-nav a {
+  color: whitesmoke;
+}
+
+.DeleteModal{
+  background-color: #343a40;
+}
+
+.row-content {
+  margin:0px auto;
+  padding: 50px 0px 50px 0px;
+  border-bottom: 1px ridge;
+  min-height:400px;
+}
+
+.footer{
+  background-color: #343a40;
+  color: whitesmoke;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-top: 3px;
+}
+h1{
+  text-shadow: 0 0 3px #343a40, 0 0 5px #343a40;
+}
+
+a{
+  color: #212529;
+}
+.jumbotron {
+  padding:70px 30px 70px 30px;
+  margin:0px auto;
+  background: #9575CD ;
+  color:floralwhite;
+}
+
+address{
+  font-size:80%;
+  margin:0px;
+  color: whitesmoke;
+}
+
+.table{
+  color: whitesmoke;
+}
+.tableHeader{
+  font-weight: bolder;
+  font-size: larger;
+  text-shadow: 0 0 1px #343a40, 0 0 2px #343a40;
+  /* color: #343a40; */
+}
+
+.table.button{
+  border-color: transparent;
+  background-color: transparent!important;
+}
+.page-link{
+  border:0;
+  color: #343a40;
+  position: static;
+}
+.page-item.active .page-link{
+  color: whitesmoke;
+  background-color: #343a40;
+}
+
+.itemsTable{
+  padding-bottom: 120px;
+}
