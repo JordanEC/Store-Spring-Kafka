@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api")
-@CrossOrigin(origins={"*"},allowedHeaders = {"*"})
 @Slf4j
 public class ItemController
 {

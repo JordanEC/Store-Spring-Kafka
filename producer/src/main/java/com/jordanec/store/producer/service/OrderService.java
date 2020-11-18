@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,6 +36,9 @@ public class OrderService
     OrderLineService orderLineService;
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    EntityManager em;
 
     @Transactional
     public Order create(Order order, Integer partition, Boolean synchronousCall) throws Throwable
@@ -56,9 +64,20 @@ public class OrderService
         return order;
     }
 
-    public Order findByOrderNumber(String orderNumber)
-    {
-        return orderRepository.findByOrderNumber(orderNumber);
+    public Order findByOrderNumber(String orderNumber, boolean includeOrderLines) {
+        Order order;
+        if (includeOrderLines) {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery query = cb.createQuery();
+            Root rootOrder = query.from(Order.class);
+            rootOrder.fetch("orderLines", JoinType.LEFT);
+            query.select(rootOrder);
+            query.where(cb.equal(rootOrder.get("orderNumber"), orderNumber));
+            order = (Order) em.createQuery(query).getSingleResult();
+        } else {
+                order = orderRepository.findByOrderNumber(orderNumber);
+        }
+        return order;
     }
 
     private List<OrderLine> calculateOrder(Order order) throws Exception

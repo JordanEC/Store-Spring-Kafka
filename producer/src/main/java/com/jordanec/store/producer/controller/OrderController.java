@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequestMapping(value = "api")
-@CrossOrigin(origins="http://localhost:4200")
 public class OrderController
 {
     @Autowired
@@ -37,8 +36,9 @@ public class OrderController
 
 
     @RequestMapping(value = "/order", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Order> get(@RequestParam("orderNumber") String orderNumber)
+    public ResponseEntity<Order> get(@RequestParam("orderNumber") String orderNumber,
+                                     @RequestParam(value = "includeOrderLines", required = false) boolean includeOrderLines)
     {
-        return new ResponseEntity<>(orderService.findByOrderNumber(orderNumber), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.findByOrderNumber(orderNumber, includeOrderLines), HttpStatus.OK);
     }
 }

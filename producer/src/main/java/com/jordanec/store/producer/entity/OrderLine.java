@@ -5,13 +5,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.MapsId;
+import javax.persistence.*;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -29,8 +25,9 @@ public class OrderLine
     @ManyToOne
     @MapsId("itemId")
     private Item item;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("orderId")
+    @ToString.Exclude
     private Order order;
     @Column
     private Integer quantity;
