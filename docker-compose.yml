@@ -57,3 +57,26 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       WAIT_BEFORE_HOSTS: 10
       WAIT_HOSTS: store-producer:8080
+#  store-app:
+#    stdin_open: true
+#    image: jordanec/store-app:latest
+#    build:
+#      context: ./
+#      dockerfile: store-app/Dockerfile.dev
+#    ports:
+#      - 4200:4200
+#    container_name: store-app
+#    volumes:
+#      - './store-app/:/app'
+#      - '/app/node_modules'
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+  store-app-prod:
+    stdin_open: true
+    image: jordanec/store-app-prod:latest
+    build:
+      context: ./
+      dockerfile: store-app/Dockerfile
+    ports:
+      - 80:80
+    container_name: store-app-prod

@@ -23,18 +23,14 @@ producer/out
 
 #React app
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
 /store-app/node_modules
+/store-app/build
+#/store-app/package-lock.json
 #/.pnp
 #.pnp.js
-
 # testing
 #/coverage
-
 # production
-#/store-app/build
-
 # misc
 #.DS_Store
 #.env.local
@@ -45,4 +41,3 @@ producer/out
 #npm-debug.log*
 #yarn-debug.log*
 #yarn-error.log*
-/store-app/package-lock.json
