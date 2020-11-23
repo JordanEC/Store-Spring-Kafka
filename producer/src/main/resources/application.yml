@@ -1,7 +1,7 @@
 application:
   name: order
   web:
-    allowedOrigins: 'http://localhost,http://localhost:4200,http://localhost:80,http://192.168.1.19:4200,http://192.168.1.19:80'
+    allowedOrigins: 'http://172.17.0.2:31042,http://localhost,http://localhost:4200,http://localhost:80,http://192.168.1.19:4200,http://192.168.1.19:80'
     allowedMethods: 'GET,OPTIONS,PUT,POST,DELETE'
 server:
   port: 8080
@@ -15,10 +15,6 @@ spring:
 #  jackson:
 #    serialization:
 #      fail-on-empty-beans: false
-logging:
-  level:
-    org:
-      springframework: DEBUG
 
 ---
 spring:
@@ -56,6 +52,13 @@ spring:
 #        bootstrap.servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
 #        bootstrap.servers: localhost:9092,localhost:9093,localhost:9094
         bootstrap.servers: localhost:9092
+logging:
+  level:
+    root: DEBUG
+#    org:
+#      springframework: DEBUG
+#    com:
+#      jordanec: DEBUG
 hibernate:
   dialect: org.hibernate.dialect.MySQL8Dialect
 
@@ -95,5 +98,12 @@ spring:
         #        bootstrap.servers: 192.168.99.100:32769,192.168.99.100:32770,192.168.99.100:32771
         #        bootstrap.servers: localhost:9092,localhost:9093,localhost:9094
         bootstrap.servers: kafka-service:9092
+logging:
+  level:
+    root: INFO
+#    org:
+#      springframework: INFO
+#    com:
+#      jordanec: INFO
 hibernate:
   dialect: org.hibernate.dialect.MySQL8Dialect

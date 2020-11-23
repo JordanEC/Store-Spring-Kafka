@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-web-deployment
+  labels:
+    app: store-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: store-web-pod
+      app: store-app
+  template:
+    metadata:
+      name: store-web-pod
+      labels:
+        name: store-web-pod
+        app: store-app
+    spec:
+      hostname: store-web-prod
+      containers:
+        - name: store-web-prod
+          image: jordanec/store-web-prod:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+#          env:env
+#            - name:
+#              value:

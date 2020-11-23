@@ -18,6 +18,7 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka-service:
 #    build: .
     image: wurstmeister/kafka
@@ -31,6 +32,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
   store-producer:
     image: jordanec/store-producer:latest
     build:
@@ -43,8 +45,10 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       WAIT_BEFORE_HOSTS: 5
       WAIT_HOSTS: mysql:3306
+      LOGGING_LEVEL_ROOT: DEBUG
 #    volumes:
 #      - /data/spring-boot-app
+
   store-consumer:
     image: jordanec/store-consumer:latest
     build:
@@ -57,26 +61,29 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       WAIT_BEFORE_HOSTS: 10
       WAIT_HOSTS: store-producer:8080
-#  store-app:
-#    stdin_open: true
-#    image: jordanec/store-app:latest
-#    build:
-#      context: ./
-#      dockerfile: store-app/Dockerfile.dev
-#    ports:
-#      - 4200:4200
-#    container_name: store-app
-#    volumes:
-#      - './store-app/:/app'
-#      - '/app/node_modules'
-#    environment:
-#      - CHOKIDAR_USEPOLLING=true
-  store-app-prod:
+      LOGGING_LEVEL_ROOT: DEBUG
+
+  store-web:
     stdin_open: true
-    image: jordanec/store-app-prod:latest
+    image: jordanec/store-web:latest
     build:
       context: ./
-      dockerfile: store-app/Dockerfile
+      dockerfile: store-web/Dockerfile-dev
     ports:
-      - 80:80
-    container_name: store-app-prod
+      - 4200:4200
+    container_name: store-web
+    volumes:
+      - './store-web/:/app'
+      - '/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+#  store-web-prod:
+#    stdin_open: true
+#    image: jordanec/store-web-prod:latest
+#    build:
+#      context: ./
+#      dockerfile: store-web/Dockerfile
+#    ports:
+#      - 80:80
+#    container_name: store-web-prod

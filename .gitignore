@@ -23,9 +23,11 @@ producer/out
 
 #React app
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-/store-app/node_modules
-/store-app/build
-#/store-app/package-lock.json
+/store-web/node_modules
+/store-web/build
+/store-web/.vscode/launch.json
+/store-web/package-lock.json
+/store-app/package-lock.json
 #/.pnp
 #.pnp.js
 # testing

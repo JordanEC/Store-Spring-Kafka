@@ -19,7 +19,7 @@ spec:
     spec:
       hostname: producer
       containers:
-        - name: store
+        - name: producer
           image: jordanec/store-producer:latest
           imagePullPolicy: Never
           ports:
@@ -27,3 +27,5 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
+            - name: LOGGING_LEVEL_ROOT
+              value: DEBUG

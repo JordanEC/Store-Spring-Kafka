@@ -45,7 +45,13 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: order-events_shipment
-
+logging:
+  level:
+    root: DEBUG
+#    org:
+#      springframework: DEBUG
+#    com:
+#      jordanec: DEBUG
 ---
 spring:
   profiles: docker
@@ -73,3 +79,10 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: order-events_shipment
+logging:
+  level:
+    root: INFO
+#    org:
+#      springframework: INFO
+#    com:
+#      jordanec: INFO
