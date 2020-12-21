@@ -17,13 +17,10 @@ spec:
         name: store-web-pod
         app: store-app
     spec:
-      hostname: store-web-prod
+      hostname: store-web
       containers:
-        - name: store-web-prod
-          image: jordanec/store-web-prod:latest
+        - name: store-web
+          image: jordanec/store-web:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 80
-#          env:env
-#            - name:
-#              value:

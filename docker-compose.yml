@@ -63,27 +63,30 @@ services:
       WAIT_HOSTS: store-producer:8080
       LOGGING_LEVEL_ROOT: DEBUG
 
+#  store-web-dev:
+#    stdin_open: true
+#    image: jordanec/store-web-dev:latest
+#    build:
+#      context: ./store-web/
+#      dockerfile: store-web/Dockerfile-dev
+#    ports:
+#      - 4200:4200
+#    container_name: store-web-dev
+#    volumes:
+#      - './store-web/:/app'
+#      - '/app/node_modules'
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+#      - REACT_APP_PRODUCER_URL=http://192.168.1.19:8080
+
   store-web:
     stdin_open: true
     image: jordanec/store-web:latest
     build:
-      context: ./
-      dockerfile: store-web/Dockerfile-dev
+      context: ./store-web/
+      dockerfile: Dockerfile
+      args:
+        - ARG_REACT_APP_PRODUCER_URL=http://192.168.1.19:8080
     ports:
-      - 4200:4200
+      - 80:80
     container_name: store-web
-    volumes:
-      - './store-web/:/app'
-      - '/app/node_modules'
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-
-#  store-web-prod:
-#    stdin_open: true
-#    image: jordanec/store-web-prod:latest
-#    build:
-#      context: ./
-#      dockerfile: store-web/Dockerfile
-#    ports:
-#      - 80:80
-#    container_name: store-web-prod

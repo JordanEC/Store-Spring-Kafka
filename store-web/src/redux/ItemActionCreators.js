@@ -5,6 +5,7 @@ import * as HeaderActionCreators from './HeaderActionCreators'
 
 export const fetchItems = () => (dispatch) => {
     //dispatch(HeaderActionCreators.doLoading())
+    console.log('PRODUCER_URL='+PRODUCER_URL)
     axios.get(PRODUCER_URL + 'item'/*, {headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}}*/)
         .then((response) => {
             if (response.status === 200) {

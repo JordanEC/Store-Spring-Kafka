@@ -2,8 +2,11 @@ FROM node:alpine as build
 WORKDIR /app
 COPY package.json /app
 RUN yarn install && yarn cache clean
+ARG ARG_REACT_APP_PRODUCER_URL
+ENV REACT_APP_PRODUCER_URL=$ARG_REACT_APP_PRODUCER_URL
 COPY . /app
-CMD ["yarn", "run", "build"]
+RUN yarn run build
+#CMD ["yarn", "run", "build"]
 
 # production environment
 FROM nginx:stable-alpine

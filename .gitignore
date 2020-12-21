@@ -28,6 +28,7 @@ producer/out
 /store-web/.vscode/launch.json
 /store-web/package-lock.json
 /store-app/package-lock.json
+/store-web/dist/
 #/.pnp
 #.pnp.js
 # testing

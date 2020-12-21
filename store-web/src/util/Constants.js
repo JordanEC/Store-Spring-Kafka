@@ -1,1 +1,8 @@
-export const PRODUCER_URL = 'http://192.168.1.19:8080/store/api/'
+const getProducerHostname = () => {
+    if (process.env.REACT_APP_PRODUCER_URL != undefined) {
+        return process.env.REACT_APP_PRODUCER_URL
+    }
+    return 'http://localhost:8080'
+}
+
+export const PRODUCER_URL = getProducerHostname() + '/store/api/'

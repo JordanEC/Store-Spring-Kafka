@@ -22,17 +22,19 @@ echo "****************"
 echo "consumer: build done!"
 echo "****************"
 echo "****************"
-echo "store-web: docker build..."
+echo "store-web (dev): npm build"
+#cd store-web/ && npm run build && cd ..
 echo "****************"
-docker build -t jordanec/store-web:latest -f store-web/Dockerfile-dev ./store-web/
+echo "store-web (dev): docker build..."
 echo "****************"
-echo "store-web: build done!"
+docker build -t jordanec/store-web-dev:latest -f store-web/Dockerfile-dev ./store-web/
+echo "****************"
+echo "store-web (dev): build done!"
 echo "****************"
 echo "****************"
-echo "store-web (Prod): docker build..."
+echo "store-web (prod): docker build..."
 echo "****************"
-docker build -t jordanec/store-web-prod:latest -f store-web/Dockerfile ./store-web/
-#docker build -f store-web/Dockerfile -t jordanec/store-web-prod:latest store-web/.
+docker build -t jordanec/store-web:latest -f store-web/Dockerfile ./store-web/
 echo "****************"
-echo "store-web (Prod): build done!"
+echo "store-web (prod): build done!"
 echo "****************"
