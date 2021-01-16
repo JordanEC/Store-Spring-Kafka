@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -29,6 +30,7 @@ public class Item
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemId;
+    @NotNull
     private String name;
     private String description;
     private Double unitPrice;

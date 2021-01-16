@@ -45,12 +45,18 @@ subprojects {
         compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
         compile group: 'mysql', name: 'mysql-connector-java'
+        compile group: 'io.cucumber', name: 'cucumber-java', version: '6.9.1'
+        compile group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '6.9.1'
+        compile group: 'io.cucumber', name: 'cucumber-spring', version: '6.9.1'
+
         annotationProcessor 'org.projectlombok:lombok:1.18.12'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation 'org.springframework.kafka:spring-kafka-test'
         testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'io.cucumber', name: 'cucumber-junit', version: '6.9.1'
+        testImplementation 'io.cucumber:cucumber-java:6.8.1'
         testRuntime("com.h2database:h2")
     }
     sourceSets {
@@ -86,5 +92,22 @@ project(':consumer'){
 sourceSets{
     test {
         java.srcDirs = ['src/test/java','src/integration-test/java']
+    }
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--plugin', 'json:target/cucumber-report.json', '--glue', 'cucumber', 'src/integration-test/resources/features']
+        }
     }
 }

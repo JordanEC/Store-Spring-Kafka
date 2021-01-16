@@ -38,13 +38,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { ProducerApp.class,
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = { ProducerApp.class,
         H2JpaConfig.class })
 @EmbeddedKafka(topics = {OrderProducer.TOPIC_ORDER_EVENTS}, partitions = 3)
 @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
         "spring.kafka.admin.properties.bootstrap.servers=${spring.embedded.kafka.brokers}"})
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")*/
+@ActiveProfiles("test")
 public class OrderControllerTest
 {
 
@@ -76,7 +76,7 @@ public class OrderControllerTest
         consumer.close();
     }
 
-//    @Test
+    @Test
     @Timeout(5)
     public void create_success() throws Exception
     {
